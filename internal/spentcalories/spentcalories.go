@@ -28,7 +28,9 @@ func parseTraining(data string) (int, string, time.Duration, error) {
 		return 0, "", 0, fmt.Errorf("ошибка преобразования шагов")
 	}
 	secondElem := divorced[1]
-
+	if steps <= 0 {
+		return 0, "", 0, fmt.Errorf("количество шагов должно быть больше нуля!")
+	}
 	thirdElem := divorced[2]
 	duration, err := time.ParseDuration(thirdElem)
 	if err != nil {
@@ -89,7 +91,7 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 	}
 
 	durationHours := duration.Hours()
-	result := fmt.Sprintf("Тип тренировки: %s\nДлительность: %.2f ч.\nДистанция: %.2f км.\nСкорость: %.2f км/ч\nСожгли калорий: %.2f",
+	result := fmt.Sprintf("Тип тренировки: %s\nДлительность: %.2f ч.\nДистанция: %.2f км.\nСкорость: %.2f км/ч\nСожгли калорий: %.2f\n",
 		activityType, durationHours, distanceKm, speed, calories)
 
 	return result, nil
