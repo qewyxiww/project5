@@ -5,12 +5,14 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/Yandex-Practicum/tracker/internal/spentcalories"
 )
 
 const (
 	// Длина одного шага в метрах
 	stepLength = 0.65
-	// Количество метров в одном километре
+	// Количество метртов в одном километре
 	mInKm = 1000
 )
 
@@ -51,7 +53,11 @@ func DayActionInfo(data string, weight, height float64) string {
 
 	distanceM := float64(steps) * stepLength
 	distanceKm := distanceM / mInKm
-	calories := WalkingSpentCalories(steps, duration, weight, height)
+	calories, err := spentcalories.WalkingSpentCalories(steps, weight, height, duration)
+	if err != nil {
+		fmt.Println(err)
+		return ""
+	}
 	result := fmt.Sprintf("Количество шагов: %d.\nДистанция составила %.2f км.\nВы сожгли %.2f ккал.",
 		steps, distanceKm, calories)
 
