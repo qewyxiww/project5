@@ -47,10 +47,6 @@ func DayActionInfo(data string, weight, height float64) string {
 		return ""
 	}
 
-	if steps <= 0 {
-		return ""
-	}
-
 	distanceM := float64(steps) * stepLength
 	distanceKm := distanceM / mInKm
 	calories, err := spentcalories.WalkingSpentCalories(steps, weight, height, duration)
